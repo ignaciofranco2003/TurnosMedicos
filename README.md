@@ -71,13 +71,13 @@ DB__PASSWORD=contraseña
 ## Endpoints principales
 Resumen rápido por entidad (todos con `GET/POST/PUT/DELETE`). **Todos los endpoints requieren JWT** en el header `Authorization: Bearer <token>`.
 
-| Recurso | Ruta base | Qué hace | DTO request | DTO response |
-| --- | --- | --- | --- | --- |
-| Especialidades | `/api/especialidades` | Administra especialidades médicas disponibles. | `EspecialidadRequestDto { NombreEspecialidad }` | `EspecialidadResponseDto { Id, NombreEspecialidad }` |
-| Médicos | `/api/medicos` | Administra médicos y su información de contacto. | `MedicoRequestDto { Nombre, DNI, Telefono, Matricula, DuracionTurnoMin }` | `MedicoResponseDto` |
-| Obras sociales | `/api/obrassociales` | Administra obras sociales y sus datos básicos. | `ObraSocialRequestDto { Nombre }` | `ObraSocialResponseDto` |
-| Pacientes | `/api/pacientes` | Administra pacientes y su obra social asociada. | `PacienteRequestDto { Nombre, DNI, Telefono, TieneObraSocial, IdObraSocial? }` | `PacienteResponseDto` |
-| Turnos | `/api/turnos` | Gestiona turnos, horarios y estados. | `TurnoRequestDto { IdPaciente, IdMedico, Inicio, Fin, Estado?, Observaciones? }` | `TurnoResponseDto` |
+| Recurso | Ruta base | Qué hace |
+| --- | --- | --- |
+| Especialidades | `/api/especialidades` | Administra especialidades médicas disponibles. |
+| Médicos | `/api/medicos` | Administra médicos y su información de contacto. |
+| Obras sociales | `/api/obrassociales` | Administra obras sociales y sus datos básicos. |
+| Pacientes | `/api/pacientes` | Administra pacientes y su obra social asociada. |
+| Turnos | `/api/turnos` | Gestiona turnos, horarios y estados. |
 
 Además, `GET /api/turnos/estados` devuelve los posibles estados de turno.
 
