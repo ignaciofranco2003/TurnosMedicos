@@ -71,7 +71,7 @@ DB__PASSWORD=contraseña
 Resumen rápido por entidad (todos con `GET/POST/PUT/DELETE`). **Todos los endpoints requieren JWT** en el header `Authorization: Bearer <token>`.
 
 | Recurso | Ruta base | Qué hace | DTO request | DTO response |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | Especialidades | `/api/especialidades` | Administra especialidades médicas disponibles. | `EspecialidadRequestDto { NombreEspecialidad }` | `EspecialidadResponseDto { Id, NombreEspecialidad }` |
 | Médicos | `/api/medicos` | Administra médicos y su información de contacto. | `MedicoRequestDto { Nombre, DNI, Telefono, Matricula, DuracionTurnoMin }` | `MedicoResponseDto` |
 | Obras sociales | `/api/obrassociales` | Administra obras sociales y sus datos básicos. | `ObraSocialRequestDto { Nombre }` | `ObraSocialResponseDto` |
