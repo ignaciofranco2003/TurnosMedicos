@@ -1,0 +1,45 @@
+@baseUrl = https://localhost:8080
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc3MDQ0MDA1NCwiaXNzIjoiVHVybmVyb01lZGljbyIsImF1ZCI6IlR1cm5lcm9NZWRpY29DbGllbnQifQ.3ckGMjUfj13p-09UEmVT6D7FqHogN_K2fhjbninJOVE
+
+############################################################
+# Médicos Controller (ruta: /api/medicos)
+# Requiere: Sí (Bearer token)
+############################################################
+
+### Listar todos los médicos
+GET {{baseUrl}}/api/medicos
+Authorization: Bearer {{token}}
+
+### Obtener médico por id
+GET {{baseUrl}}/api/medicos/1
+Authorization: Bearer {{token}}
+
+### Crear médico
+POST {{baseUrl}}/api/medicos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "Dra. Mariana Gutierrez",
+  "DNI": "987654321",
+  "Telefono": "011-1234-5678",
+  "Matricula": "MP-12365",
+  "DuracionTurnoMin": 30
+}
+
+### Actualizar médico
+PUT {{baseUrl}}/api/medicos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "Dr. Juan P. Pérez",
+  "DNI": "12345678",
+  "Telefono": "011-1234-5678",
+  "Matricula": "MP-12345",
+  "DuracionTurnoMin": 30
+}
+
+### Eliminar médico
+DELETE {{baseUrl}}/api/medicos/1
+Authorization: Bearer {{token}}

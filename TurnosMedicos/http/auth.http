@@ -1,0 +1,26 @@
+@baseUrl = https://localhost:8080
+@token = PEGAR_JWT_AQUI
+
+############################################################
+# Auth Controller (ruta: /api/auth)
+# Requiere: NO (register/login)
+############################################################
+
+### Registrar usuario
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234",
+  "role": "Admin"
+}
+
+### Login (obtiene JWT)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234"
+}

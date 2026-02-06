@@ -1,0 +1,37 @@
+@baseUrl = https://localhost:8080
+@token = PEGAR_JWT_AQUI
+
+############################################################
+# Especialidades Controller (ruta: /api/especialidades)
+# Requiere: Sí (Bearer token)
+############################################################
+
+### Listar todas las especialidades
+GET {{baseUrl}}/api/especialidades
+Authorization: Bearer {{token}}
+
+### Obtener especialidad por id
+GET {{baseUrl}}/api/especialidades/1
+Authorization: Bearer {{token}}
+
+### Crear especialidad
+POST {{baseUrl}}/api/especialidades
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "NombreEspecialidad": "Cardiología"
+}
+
+### Actualizar especialidad
+PUT {{baseUrl}}/api/especialidades/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "NombreEspecialidad": "Cardiología Pediátrica"
+}
+
+### Eliminar especialidad
+DELETE {{baseUrl}}/api/especialidades/1
+Authorization: Bearer {{token}}

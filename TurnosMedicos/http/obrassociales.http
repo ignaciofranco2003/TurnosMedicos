@@ -1,0 +1,37 @@
+@baseUrl = https://localhost:8080
+@token = PEGAR_JWT_AQUI
+
+############################################################
+# Obras Sociales Controller (ruta: /api/obrassociales)
+# Requiere: Sí (Bearer token)
+############################################################
+
+### Listar todas las obras sociales
+GET {{baseUrl}}/api/obrassociales
+Authorization: Bearer {{token}}
+
+### Obtener obra social por id
+GET {{baseUrl}}/api/obrassociales/1
+Authorization: Bearer {{token}}
+
+### Crear obra social
+POST {{baseUrl}}/api/obrassociales
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "ObraSocial Ejemplo"
+}
+
+### Actualizar obra social
+PUT {{baseUrl}}/api/obrassociales/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "ObraSocial Ejemplo Actualizada"
+}
+
+### Eliminar obra social
+DELETE {{baseUrl}}/api/obrassociales/1
+Authorization: Bearer {{token}}

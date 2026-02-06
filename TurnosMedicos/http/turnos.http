@@ -1,0 +1,51 @@
+@baseUrl = https://localhost:8080
+@token = PEGAR_JWT_AQUI
+
+############################################################
+# Turnos Controller (ruta: /api/turnos)
+# Requiere: Sí (Bearer token)
+############################################################
+
+### Listar todos los turnos
+GET {{baseUrl}}/api/turnos
+Authorization: Bearer {{token}}
+
+### Obtener turno por id
+GET {{baseUrl}}/api/turnos/3
+Authorization: Bearer {{token}}
+
+### Obtener estados posibles de turno
+GET {{baseUrl}}/api/turnos/estados
+Authorization: Bearer {{token}}
+
+### Crear turno
+POST {{baseUrl}}/api/turnos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "IdPaciente": 3,
+  "IdMedico": 1,
+  "Inicio": "2026-02-05T10:00:00",
+  "Fin": "2026-02-05T10:30:00",
+  "Estado": "Pendiente",
+  "Observaciones": "Primera consulta"
+}
+
+### Actualizar turno
+PUT {{baseUrl}}/api/turnos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "IdPaciente": 1,
+  "IdMedico": 1,
+  "Inicio": "2026-02-05T10:00:00",
+  "Fin": "2026-02-05T10:30:00",
+  "Estado": "Confirmado",
+  "Observaciones": "Cambió horario"
+}
+
+### Eliminar turno
+DELETE {{baseUrl}}/api/turnos/1
+Authorization: Bearer {{token}}

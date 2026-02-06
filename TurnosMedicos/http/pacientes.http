@@ -1,0 +1,57 @@
+@baseUrl = https://localhost:8080
+@token = PEGAR_JWT_AQUI
+
+############################################################
+# Pacientes Controller (ruta: /api/pacientes)
+# Requiere: Sí (Bearer token)
+############################################################
+
+### Listar todos los pacientes
+GET {{baseUrl}}/api/pacientes
+Authorization: Bearer {{token}}
+
+### Obtener paciente por id
+GET {{baseUrl}}/api/pacientes/1
+Authorization: Bearer {{token}}
+
+### Crear paciente (sin obra social)
+POST {{baseUrl}}/api/pacientes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "Juan López",
+  "DNI": "87456121",
+  "Telefono": "011-8765-4321",
+  "TieneObraSocial": false
+}
+
+### Crear paciente (con obra social)
+POST {{baseUrl}}/api/pacientes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "María A. López",
+  "DNI": "87654321",
+  "Telefono": "011-8765-4321",
+  "TieneObraSocial": true,
+  "IdObraSocial": 1
+}
+
+### Actualizar paciente
+PUT {{baseUrl}}/api/pacientes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nombre": "María A. López",
+  "DNI": "87654321",
+  "Telefono": "011-8765-4321",
+  "TieneObraSocial": true,
+  "IdObraSocial": 1
+}
+
+### Eliminar paciente
+DELETE {{baseUrl}}/api/pacientes/3
+Authorization: Bearer {{token}}

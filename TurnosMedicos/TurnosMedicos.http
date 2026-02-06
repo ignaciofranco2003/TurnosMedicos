@@ -1,0 +1,229 @@
+@TurnosMedicos_HostAddress = http://localhost:5293
+
+# Documentación de endpoints - TurnosMedicos
+# Variables
+# - @TurnosMedicos_HostAddress: dirección base de la API
+
+@TurnosMedicos_HostAddress = http://localhost:5293
+
+############################################################
+# Autenticación (ruta: /api/auth)
+############################################################
+
+### Registrar usuario
+POST {{TurnosMedicos_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234",
+  "role": "Admin"
+}
+
+### Login (obtiene JWT)
+POST {{TurnosMedicos_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234"
+}
+
+############################################################
+# Especialidades (ruta: /api/especialidades)
+############################################################
+
+### Listar todas las especialidades
+GET {{TurnosMedicos_HostAddress}}/api/especialidades
+Authorization: Bearer <token>
+
+### Obtener especialidad por id
+GET {{TurnosMedicos_HostAddress}}/api/especialidades/1
+Authorization: Bearer <token>
+
+### Crear especialidad
+POST {{TurnosMedicos_HostAddress}}/api/especialidades
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "NombreEspecialidad": "Cardiología"
+}
+
+### Actualizar especialidad
+PUT {{TurnosMedicos_HostAddress}}/api/especialidades/1
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "NombreEspecialidad": "Cardiología Pediátrica"
+}
+
+### Eliminar especialidad
+DELETE {{TurnosMedicos_HostAddress}}/api/especialidades/1
+Authorization: Bearer <token>
+
+############################################################
+# Médicos (ruta: /api/medicos)
+############################################################
+
+### Listar todos los médicos
+GET {{TurnosMedicos_HostAddress}}/api/medicos
+Authorization: Bearer <token>
+
+### Obtener médico por id
+GET {{TurnosMedicos_HostAddress}}/api/medicos/1
+Authorization: Bearer <token>
+
+### Crear médico
+POST {{TurnosMedicos_HostAddress}}/api/medicos
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "Nombre": "Dra. Mariana Gutierrez",
+  "DNI": "987654321",
+  "Telefono": "011-1234-5678",
+  "Matricula": "MP-12365",
+  "DuracionTurnoMin": 30
+}
+
+### Actualizar médico
+PUT {{TurnosMedicos_HostAddress}}/api/medicos/1
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "Nombre": "Dr. Juan P. Pérez",
+  "DNI": "12345678",
+  "Telefono": "011-1234-5678",
+  "Matricula": "MP-12345",
+  "DuracionTurnoMin": 30
+}
+
+### Eliminar médico
+DELETE {{TurnosMedicos_HostAddress}}/api/medicos/1
+Authorization: Bearer <token>
+
+############################################################
+# Obras sociales (ruta: /api/obrassociales)
+############################################################
+
+### Listar todas las obras sociales
+GET {{TurnosMedicos_HostAddress}}/api/obrassociales
+Authorization: Bearer <token>
+
+### Obtener obra social por id
+GET {{TurnosMedicos_HostAddress}}/api/obrassociales/1
+Authorization: Bearer <token>
+
+### Crear obra social
+POST {{TurnosMedicos_HostAddress}}/api/obrassociales
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "Nombre": "ObraSocial Ejemplo"
+}
+
+### Actualizar obra social
+PUT {{TurnosMedicos_HostAddress}}/api/obrassociales/1
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "Nombre": "ObraSocial Ejemplo Actualizada"
+}
+
+### Eliminar obra social
+DELETE {{TurnosMedicos_HostAddress}}/api/obrassociales/1
+Authorization: Bearer <token>
+
+############################################################
+# Pacientes (ruta: /api/pacientes)
+############################################################
+
+### Listar todos los pacientes
+GET {{TurnosMedicos_HostAddress}}/api/pacientes
+Authorization: Bearer <token>
+
+### Obtener paciente por id
+GET {{TurnosMedicos_HostAddress}}/api/pacientes/1
+Authorization: Bearer <token>
+
+### Crear paciente
+POST {{TurnosMedicos_HostAddress}}/api/pacientes
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "Nombre": "Juan López",
+  "DNI": "87456121",
+  "Telefono": "011-8765-4321",
+  "TieneObraSocial": false
+}
+
+### Actualizar paciente
+PUT {{TurnosMedicos_HostAddress}}/api/pacientes/1
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "Nombre": "María A. López",
+  "DNI": "87654321",
+  "Telefono": "011-8765-4321",
+  "TieneObraSocial": true,
+  "IdObraSocial": 1
+}
+
+### Eliminar paciente
+DELETE {{TurnosMedicos_HostAddress}}/api/pacientes/3
+Authorization: Bearer <token>
+
+############################################################
+# Turnos (ruta: /api/turnos)
+############################################################
+
+### Listar todos los turnos
+GET {{TurnosMedicos_HostAddress}}/api/turnos
+Authorization: Bearer <token>
+
+### Obtener turno por id
+GET {{TurnosMedicos_HostAddress}}/api/turnos/3
+Authorization: Bearer <token>
+
+### Obtener estados posibles de turno
+GET {{TurnosMedicos_HostAddress}}/api/turnos/estados
+Authorization: Bearer <token>
+
+### Crear turno
+POST {{TurnosMedicos_HostAddress}}/api/turnos
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "IdPaciente": 3,
+  "IdMedico": 1,
+  "Inicio": "2026-02-05T10:00:00",
+  "Fin": "2026-02-05T10:30:00",
+  "Estado": "Pendiente",
+  "Observaciones": "Primera consulta"
+}
+
+### Actualizar turno
+PUT {{TurnosMedicos_HostAddress}}/api/turnos/1
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "IdPaciente": 1,
+  "IdMedico": 1,
+  "Inicio": "2026-02-05T10:00:00",
+  "Fin": "2026-02-05T10:30:00",
+  "Estado": "Confirmado",
+  "Observaciones": "Cambió horario"
+}
+
+### Eliminar turno
+DELETE {{TurnosMedicos_HostAddress}}/api/turnos/1
+Authorization: Bearer <token>
