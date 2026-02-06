@@ -61,12 +61,14 @@ DB__PASSWORD=contraseña
    dotnet run --project TurnosMedicos
    ```
 
-> La variable `@baseUrl` en `TurnosMedicos/http` apunta a `https://localhost:8080`. Ajustala si usás otro puerto.
-
 ## Documentación y ejemplos
 
-- **Colección de requests**: `TurnosMedicos/http` contiene ejemplos listos para ejecutar (GET/POST/PUT/DELETE) y una guía de uso. Recomendado abrir con la extensión REST Client de VS Code o importar a Postman.
-- **Dump de base de datos**: el proyecto incluye un dump para cargar datos de ejemplo. Usalo si querés probar rápidamente los endpoints con datos reales.
+- **Colección de requests**: [TurnosMedicos/Http](TurnosMedicos/http) contiene ejemplos listos para ejecutar (GET/POST/PUT/DELETE) y una guía de uso. Recomendado abrir con la extensión REST Client de VS Code o importar a Postman.
+
+  > La variable `@baseUrl` en cada archivo apunta a `https://localhost:8080`. Ajustala si usás otro puerto.
+  > La variable `@token` se completa con un JWT que se obtiene haciendo una consulta POST valida en `https://localhost:8080/api/auth/login`
+
+- **Dump de base de datos**: el proyecto incluye un [dump de la base de datos](dump_turnos_medicos.sql) para cargar datos de ejemplo. Usalo si querés probar rápidamente los endpoints con datos reales.
 
 ## Endpoints principales
 Resumen rápido por entidad (todos con `GET/POST/PUT/DELETE`). **Todos los endpoints requieren JWT** en el header `Authorization: Bearer <token>`.
