@@ -13,6 +13,7 @@ Incluye CRUD completos por entidad y autenticación JWT.
 - [Puesta en marcha rápida](#puesta-en-marcha-rápida)
 - [Documentación y ejemplos](#documentación-y-ejemplos)
 - [Endpoints principales](#endpoints-principales)
+- [Rutas de autenticación](#Rutas-de-autenticación)
 
 ## Stack y alcance
 - **Framework**: .NET 8 + ASP.NET Core
@@ -79,3 +80,7 @@ Resumen rápido por entidad (todos con `GET/POST/PUT/DELETE`). **Todos los endpo
 | Turnos | `/api/turnos` | Gestiona turnos, horarios y estados. | `TurnoRequestDto { IdPaciente, IdMedico, Inicio, Fin, Estado?, Observaciones? }` | `TurnoResponseDto` |
 
 Además, `GET /api/turnos/estados` devuelve los posibles estados de turno.
+
+## Rutas de autenticación:
+- `POST /api/auth/register`: registra un usuario.
+- `POST /api/auth/login`: valida credenciales y devuelve el JWT.
