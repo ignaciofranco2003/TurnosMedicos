@@ -3,8 +3,8 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE DATABASE IF NOT EXISTS `TurnosMedicos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `TurnosMedicos`;
+CREATE DATABASE IF NOT EXISTS `turnosmedicos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `turnosmedicos`;
 
 -- Drop tables if exist (in dependency order)
 DROP TABLE IF EXISTS `MedicoEspecialidad`;
@@ -117,13 +117,13 @@ INSERT INTO `ObrasSociales` (`Id`, `Nombre`) VALUES
   (2, 'Swiss Medical');
 
 INSERT INTO `Especialidades` (`Id`, `NombreEspecialidad`) VALUES
-  (1, 'CardiologÌa'),
-  (2, 'PediatrÌa'),
-  (3, 'DermatologÌa');
+  (1, 'Cardiolog√≠a'),
+  (2, 'Pediatr√≠a'),
+  (3, 'Dermatolog√≠a');
 
 INSERT INTO `Medicos` (`Id`, `Nombre`, `DNI`, `Telefono`, `Matricula`, `DuracionTurnoMin`) VALUES
-  (1, 'Dr. Juan PÈrez', '12345678', '011-1111-0001', 'MP-1000', 30),
-  (2, 'Dra. Ana GÛmez', '87654321', '011-2222-0002', 'MP-2000', 20),
+  (1, 'Dr. Juan P√©rez', '12345678', '011-1111-0001', 'MP-1000', 30),
+  (2, 'Dra. Ana G√≥mez', '87654321', '011-2222-0002', 'MP-2000', 20),
   (3, 'Dr. Carlos Ruiz', '11223344', '011-3333-0003', 'MP-3000', 15);
 
 INSERT INTO `MedicoEspecialidad` (`MedicoId`, `EspecialidadId`) VALUES
@@ -139,14 +139,14 @@ INSERT INTO `DisponibilidadMedico` (`Id`, `MedicoId`, `DiaSemana`, `HoraDesde`, 
   (4, 3, 2, '10:00:00', '15:00:00');
 
 INSERT INTO `Pacientes` (`Id`, `Nombre`, `DNI`, `Telefono`, `TieneObraSocial`, `IdObraSocial`) VALUES
-  (1, 'Juan LÛpez', '87456121', '011-8765-4321', 1, 1),
-  (2, 'MarÌa A. LÛpez', '87654321', '011-8765-4322', 0, NULL),
-  (3, 'Lucas Fern·ndez', '99887766', '011-4444-5555', 1, 2);
+  (1, 'Juan L√≥pez', '87456121', '011-8765-4321', 1, 1),
+  (2, 'Mar√≠a A. L√≥pez', '87654321', '011-8765-4322', 0, NULL),
+  (3, 'Lucas Fern√°ndez', '99887766', '011-4444-5555', 1, 2);
 
 INSERT INTO `Turnos` (`Id`, `IdPaciente`, `IdMedico`, `Inicio`, `Fin`, `Estado`, `Observaciones`) VALUES
   (1, 1, 1, '2026-02-05 10:00:00', '2026-02-05 10:30:00', 0, 'Primera consulta'),
-  (2, 3, 2, '2026-02-06 09:00:00', '2026-02-06 09:20:00', 1, 'Control pediatrÌa'),
-  (3, 2, 3, '2026-02-07 11:00:00', '2026-02-07 11:15:00', 0, 'Consulta dermatologÌa');
+  (2, 3, 2, '2026-02-06 09:00:00', '2026-02-06 09:20:00', 1, 'Control pediatr√≠a'),
+  (3, 2, 3, '2026-02-07 11:00:00', '2026-02-07 11:15:00', 0, 'Consulta dermatolog√≠a');
 
 SET FOREIGN_KEY_CHECKS = 1;
 

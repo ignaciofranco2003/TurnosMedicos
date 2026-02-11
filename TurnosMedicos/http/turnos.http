@@ -7,18 +7,24 @@
 ############################################################
 
 ### Listar todos los turnos
+# Response example: ../JsonResponses/turnos/get_all.200.json
 GET {{baseUrl}}/api/turnos
 Authorization: Bearer {{token}}
 
 ### Obtener turno por id
+# Response example: ../JsonResponses/turnos/get_by_id.200.json
+# Response example (404): ../JsonResponses/turnos/get_by_id.404.json
 GET {{baseUrl}}/api/turnos/3
 Authorization: Bearer {{token}}
 
 ### Obtener estados posibles de turno
+# Response example: ../JsonResponses/turnos/get_estados.200.json
 GET {{baseUrl}}/api/turnos/estados
 Authorization: Bearer {{token}}
 
 ### Crear turno
+# Response example: ../JsonResponses/turnos/create.201.json
+# Response example (400): ../JsonResponses/turnos/create.400.json
 POST {{baseUrl}}/api/turnos
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -33,6 +39,8 @@ Authorization: Bearer {{token}}
 }
 
 ### Actualizar turno
+# Response example: ../JsonResponses/turnos/update.200.json
+# Response example (400): ../JsonResponses/turnos/update.400.json
 PUT {{baseUrl}}/api/turnos/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -47,5 +55,6 @@ Authorization: Bearer {{token}}
 }
 
 ### Eliminar turno
+# Response example: ../JsonResponses/turnos/delete.200.json
 DELETE {{baseUrl}}/api/turnos/1
 Authorization: Bearer {{token}}

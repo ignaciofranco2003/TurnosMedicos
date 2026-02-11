@@ -7,14 +7,18 @@
 ############################################################
 
 ### Listar todos los pacientes
+# Response example: ../JsonResponses/pacientes/get_all.200.json
 GET {{baseUrl}}/api/pacientes
 Authorization: Bearer {{token}}
 
 ### Obtener paciente por id
+# Response example: ../JsonResponses/pacientes/get_by_id.200.json
+# Response example (404): ../JsonResponses/pacientes/get_by_id.404.json
 GET {{baseUrl}}/api/pacientes/1
 Authorization: Bearer {{token}}
 
 ### Crear paciente (sin obra social)
+# Response example: ../JsonResponses/pacientes/create.201.json
 POST {{baseUrl}}/api/pacientes
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -27,6 +31,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Crear paciente (con obra social)
+# Response example: ../JsonResponses/pacientes/create.201.json
 POST {{baseUrl}}/api/pacientes
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -40,6 +45,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Actualizar paciente
+# Response example: ../JsonResponses/pacientes/update.200.json
 PUT {{baseUrl}}/api/pacientes/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -53,5 +59,6 @@ Authorization: Bearer {{token}}
 }
 
 ### Eliminar paciente
+# Response example: ../JsonResponses/pacientes/delete.200.json
 DELETE {{baseUrl}}/api/pacientes/3
 Authorization: Bearer {{token}}

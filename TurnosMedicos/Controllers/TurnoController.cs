@@ -93,6 +93,7 @@ public class TurnosController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         try

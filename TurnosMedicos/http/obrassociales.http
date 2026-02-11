@@ -7,14 +7,18 @@
 ############################################################
 
 ### Listar todas las obras sociales
+# Response example: ../JsonResponses/obrassociales/get_all.200.json
 GET {{baseUrl}}/api/obrassociales
 Authorization: Bearer {{token}}
 
 ### Obtener obra social por id
+# Response example: ../JsonResponses/obrassociales/get_by_id.200.json
+# Response example (404): ../JsonResponses/obrassociales/get_by_id.404.json
 GET {{baseUrl}}/api/obrassociales/1
 Authorization: Bearer {{token}}
 
 ### Crear obra social
+# Response example: ../JsonResponses/obrassociales/create.201.json
 POST {{baseUrl}}/api/obrassociales
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -24,6 +28,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Actualizar obra social
+# Response example: ../JsonResponses/obrassociales/update.200.json
 PUT {{baseUrl}}/api/obrassociales/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -33,5 +38,6 @@ Authorization: Bearer {{token}}
 }
 
 ### Eliminar obra social
+# Response example: ../JsonResponses/obrassociales/delete.200.json
 DELETE {{baseUrl}}/api/obrassociales/1
 Authorization: Bearer {{token}}

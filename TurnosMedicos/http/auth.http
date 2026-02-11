@@ -7,6 +7,8 @@
 ############################################################
 
 ### Registrar usuario
+# Response example: ../JsonResponses/auth/register.200.json
+# Response example (400): ../JsonResponses/auth/register.400.json
 POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
@@ -17,6 +19,8 @@ Content-Type: application/json
 }
 
 ### Login (obtiene JWT)
+# Response example: ../JsonResponses/auth/login.200.json
+# Response example (401): ../JsonResponses/auth/login.401.json
 POST {{baseUrl}}/api/auth/login
 Content-Type: application/json
 

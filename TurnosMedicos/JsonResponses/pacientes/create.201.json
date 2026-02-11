@@ -1,0 +1,9 @@
+{
+  "id": 10,
+  "nombre": "Juan L�pez",
+  "dni": "87456121",
+  "telefono": "011-8765-4321",
+  "tieneObraSocial": false,
+  "idObraSocial": null,
+  "nombreObraSocial": null
+}

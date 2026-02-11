@@ -1,5 +1,5 @@
-@baseUrl = https://localhost:8080
-@token = PEGAR_JWT_AQUI
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc3MDUzMTY0NSwiaXNzIjoiVHVybmVyb01lZGljbyIsImF1ZCI6IlR1cm5lcm9NZWRpY29DbGllbnQifQ.PttxI9IhLvG_Z0R-Tr_MSLI5EKdhtijtiyH7y6QKcUM
 
 ############################################################
 # Especialidades Controller (ruta: /api/especialidades)
@@ -7,14 +7,18 @@
 ############################################################
 
 ### Listar todas las especialidades
+# Response example: ../JsonResponses/especialidades/get_all.200.json
 GET {{baseUrl}}/api/especialidades
 Authorization: Bearer {{token}}
 
 ### Obtener especialidad por id
+# Response example: ../JsonResponses/especialidades/get_by_id.200.json
+# Response example (404): ../JsonResponses/especialidades/get_by_id.404.json
 GET {{baseUrl}}/api/especialidades/1
 Authorization: Bearer {{token}}
 
 ### Crear especialidad
+# Response example: ../JsonResponses/especialidades/create.201.json
 POST {{baseUrl}}/api/especialidades
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -24,6 +28,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Actualizar especialidad
+# Response example: ../JsonResponses/especialidades/update.200.json
 PUT {{baseUrl}}/api/especialidades/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -33,5 +38,6 @@ Authorization: Bearer {{token}}
 }
 
 ### Eliminar especialidad
+# Response example: ../JsonResponses/especialidades/delete.200.json
 DELETE {{baseUrl}}/api/especialidades/1
 Authorization: Bearer {{token}}

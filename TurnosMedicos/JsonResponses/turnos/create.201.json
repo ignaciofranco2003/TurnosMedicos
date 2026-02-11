@@ -1,0 +1,11 @@
+{
+  "id": 7,
+  "idPaciente": 3,
+  "idMedico": 1,
+  "inicio": "2026-02-05T10:00:00",
+  "fin": "2026-02-05T10:30:00",
+  "estado": "Pendiente",
+  "observaciones": "Primera consulta",
+  "nombrePaciente": "Juan López",
+  "nombreMedico": "Dr. Juan Pérez"
+}

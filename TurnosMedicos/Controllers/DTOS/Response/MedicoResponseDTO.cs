@@ -8,4 +8,7 @@ public class MedicoResponseDto
     public string Telefono { get; set; } = string.Empty;
     public string Matricula { get; set; } = string.Empty;
     public int DuracionTurnoMin { get; set; }
+
+    // Especialidades asignadas al médico (relación N..N)
+    public List<EspecialidadResponseDto> Especialidades { get; set; } = new();
 }

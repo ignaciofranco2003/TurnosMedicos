@@ -1,0 +1,5 @@
+{
+  "token": "<jwt>",
+  "role": "Admin",
+  "username": "admin"
+}

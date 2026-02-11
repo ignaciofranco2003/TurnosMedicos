@@ -73,6 +73,28 @@ namespace TurnosMedicos.Controllers
             }
         }
 
+        [HttpPost("{id:int}/especialidades")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SetEspecialidades(int id, [FromBody] AsignarEspecialidadesRequestDto dto)
+        {
+            try
+            {
+                var ok = await _service.SetEspecialidadesAsync(id, dto.EspecialidadesNombres);
+                return ok
+                    ? NoContent()
+                    : NotFound(new { message = $"No existe medico con ID {id}" });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
         [HttpDelete("{id:int}")]
         [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)

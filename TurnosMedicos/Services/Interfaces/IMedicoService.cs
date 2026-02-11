@@ -11,5 +11,9 @@ public interface IMedicoService
     Task<MedicoResponseDto> CreateAsync(MedicoRequestDto dto);
     Task<bool> UpdateAsync(int id, MedicoRequestDto dto);
 
+    // Reemplaza las especialidades del médico por la lista recibida (por nombres)
+    // El front envía una lista de nombres (puede ser uno o varios)
+    Task<bool> SetEspecialidadesAsync(int medicoId, List<string> especialidadesNombres);
+
     Task<bool> DeleteAsync(int id);
 }

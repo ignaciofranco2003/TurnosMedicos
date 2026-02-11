@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Dr. Juan P�rez",
+    "dni": "12345678",
+    "telefono": "011-1234-5678",
+    "matricula": "MP-12345",
+    "duracionTurnoMin": 30,
+    "especialidades": [
+      {
+        "id": 1,
+        "nombreEspecialidad": "Cardiolog�a"
+      }
+    ]
+  }
+]

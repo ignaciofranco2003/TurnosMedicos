@@ -11,6 +11,8 @@
 ############################################################
 
 ### Registrar usuario
+# Response example: JsonResponses/auth/register.200.json
+# Response example (400): JsonResponses/auth/register.400.json
 POST {{TurnosMedicos_HostAddress}}/api/auth/register
 Content-Type: application/json
 
@@ -21,6 +23,8 @@ Content-Type: application/json
 }
 
 ### Login (obtiene JWT)
+# Response example: JsonResponses/auth/login.200.json
+# Response example (401): JsonResponses/auth/login.401.json
 POST {{TurnosMedicos_HostAddress}}/api/auth/login
 Content-Type: application/json
 
@@ -34,14 +38,18 @@ Content-Type: application/json
 ############################################################
 
 ### Listar todas las especialidades
+# Response example: JsonResponses/especialidades/get_all.200.json
 GET {{TurnosMedicos_HostAddress}}/api/especialidades
 Authorization: Bearer <token>
 
 ### Obtener especialidad por id
+# Response example: JsonResponses/especialidades/get_by_id.200.json
+# Response example (404): JsonResponses/especialidades/get_by_id.404.json
 GET {{TurnosMedicos_HostAddress}}/api/especialidades/1
 Authorization: Bearer <token>
 
 ### Crear especialidad
+# Response example: JsonResponses/especialidades/create.201.json
 POST {{TurnosMedicos_HostAddress}}/api/especialidades
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -51,6 +59,7 @@ Authorization: Bearer <token>
 }
 
 ### Actualizar especialidad
+# Response example: JsonResponses/especialidades/update.200.json
 PUT {{TurnosMedicos_HostAddress}}/api/especialidades/1
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -60,6 +69,7 @@ Authorization: Bearer <token>
 }
 
 ### Eliminar especialidad
+# Response example: JsonResponses/especialidades/delete.200.json
 DELETE {{TurnosMedicos_HostAddress}}/api/especialidades/1
 Authorization: Bearer <token>
 
@@ -105,19 +115,41 @@ Authorization: Bearer <token>
 DELETE {{TurnosMedicos_HostAddress}}/api/medicos/1
 Authorization: Bearer <token>
 
+### Asignar especialidades al médico (por nombres)
+# Response example (204): JsonResponses/medicos/set_especialidades.204.txt
+# Response example (400): JsonResponses/medicos/set_especialidades.400.json
+# Response example (404): JsonResponses/medicos/set_especialidades.404.json
+POST {{TurnosMedicos_HostAddress}}/api/medicos/1/especialidades
+Content-Type: application/json
+Authorization: Bearer <token>
+
+# Un solo nombre
+{
+  "EspecialidadesNombres": ["Cardiología"]
+}
+
+# Varios nombres
+{
+  "EspecialidadesNombres": ["Cardiología", "Pediatría", "Traumatología"]
+}
+
 ############################################################
 # Obras sociales (ruta: /api/obrassociales)
 ############################################################
 
 ### Listar todas las obras sociales
+# Response example: JsonResponses/obrassociales/get_all.200.json
 GET {{TurnosMedicos_HostAddress}}/api/obrassociales
 Authorization: Bearer <token>
 
 ### Obtener obra social por id
+# Response example: JsonResponses/obrassociales/get_by_id.200.json
+# Response example (404): JsonResponses/obrassociales/get_by_id.404.json
 GET {{TurnosMedicos_HostAddress}}/api/obrassociales/1
 Authorization: Bearer <token>
 
 ### Crear obra social
+# Response example: JsonResponses/obrassociales/create.201.json
 POST {{TurnosMedicos_HostAddress}}/api/obrassociales
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -127,6 +159,7 @@ Authorization: Bearer <token>
 }
 
 ### Actualizar obra social
+# Response example: JsonResponses/obrassociales/update.200.json
 PUT {{TurnosMedicos_HostAddress}}/api/obrassociales/1
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -136,6 +169,7 @@ Authorization: Bearer <token>
 }
 
 ### Eliminar obra social
+# Response example: JsonResponses/obrassociales/delete.200.json
 DELETE {{TurnosMedicos_HostAddress}}/api/obrassociales/1
 Authorization: Bearer <token>
 
@@ -144,14 +178,18 @@ Authorization: Bearer <token>
 ############################################################
 
 ### Listar todos los pacientes
+# Response example: JsonResponses/pacientes/get_all.200.json
 GET {{TurnosMedicos_HostAddress}}/api/pacientes
 Authorization: Bearer <token>
 
 ### Obtener paciente por id
+# Response example: JsonResponses/pacientes/get_by_id.200.json
+# Response example (404): JsonResponses/pacientes/get_by_id.404.json
 GET {{TurnosMedicos_HostAddress}}/api/pacientes/1
 Authorization: Bearer <token>
 
 ### Crear paciente
+# Response example: JsonResponses/pacientes/create.201.json
 POST {{TurnosMedicos_HostAddress}}/api/pacientes
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -164,6 +202,7 @@ Authorization: Bearer <token>
 }
 
 ### Actualizar paciente
+# Response example: JsonResponses/pacientes/update.200.json
 PUT {{TurnosMedicos_HostAddress}}/api/pacientes/1
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -177,6 +216,7 @@ Authorization: Bearer <token>
 }
 
 ### Eliminar paciente
+# Response example: JsonResponses/pacientes/delete.200.json
 DELETE {{TurnosMedicos_HostAddress}}/api/pacientes/3
 Authorization: Bearer <token>
 
@@ -185,18 +225,24 @@ Authorization: Bearer <token>
 ############################################################
 
 ### Listar todos los turnos
+# Response example: JsonResponses/turnos/get_all.200.json
 GET {{TurnosMedicos_HostAddress}}/api/turnos
 Authorization: Bearer <token>
 
 ### Obtener turno por id
+# Response example: JsonResponses/turnos/get_by_id.200.json
+# Response example (404): JsonResponses/turnos/get_by_id.404.json
 GET {{TurnosMedicos_HostAddress}}/api/turnos/3
 Authorization: Bearer <token>
 
 ### Obtener estados posibles de turno
+# Response example: JsonResponses/turnos/get_estados.200.json
 GET {{TurnosMedicos_HostAddress}}/api/turnos/estados
 Authorization: Bearer <token>
 
 ### Crear turno
+# Response example: JsonResponses/turnos/create.201.json
+# Response example (400): JsonResponses/turnos/create.400.json
 POST {{TurnosMedicos_HostAddress}}/api/turnos
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -211,6 +257,8 @@ Authorization: Bearer <token>
 }
 
 ### Actualizar turno
+# Response example: JsonResponses/turnos/update.200.json
+# Response example (400): JsonResponses/turnos/update.400.json
 PUT {{TurnosMedicos_HostAddress}}/api/turnos/1
 Content-Type: application/json
 Authorization: Bearer <token>
@@ -225,5 +273,6 @@ Authorization: Bearer <token>
 }
 
 ### Eliminar turno
+# Response example: JsonResponses/turnos/delete.200.json
 DELETE {{TurnosMedicos_HostAddress}}/api/turnos/1
 Authorization: Bearer <token>
