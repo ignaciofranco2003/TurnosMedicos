@@ -35,6 +35,15 @@ public class AppDbContext : DbContext
             b.HasIndex(o => o.Nombre).IsUnique();
         });
 
+        // Especialidad
+        modelBuilder.Entity<Especialidad>(b =>
+        {
+            b.HasIndex(e => e.NombreEspecialidad).IsUnique();
+
+            b.Property(e => e.NombreEspecialidad)
+                .UseCollation("Latin1_General_100_CI_AI");
+        });
+
         // Medico
         modelBuilder.Entity<Medico>(b =>
         {

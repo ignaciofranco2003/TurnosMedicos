@@ -13,11 +13,18 @@ builder.Services.AddControllers()
 builder.Services.AddAppServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 
-// CORS - allow the frontend running on localhost:3000
+// CORS - allow the frontend origin configured via environment variable FRONT_URL (in .env)
+var frontUrl = builder.Configuration["FRONT_URL"];
+if (string.IsNullOrEmpty(frontUrl))
+{
+    // default for local development
+    frontUrl = "http://localhost:3000";
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFront", policy =>
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins(frontUrl)
               .AllowAnyHeader()
               .AllowAnyMethod()
     );

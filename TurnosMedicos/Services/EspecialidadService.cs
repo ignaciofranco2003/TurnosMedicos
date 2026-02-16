@@ -10,6 +10,9 @@ public class EspecialidadService : CrudService<Especialidad>, IEspecialidadServi
 {
     public EspecialidadService(AppDbContext db) : base(db) { }
 
+    private static string NormalizeNombre(string nombre)
+        => (nombre ?? string.Empty).Trim();
+
     private static EspecialidadResponseDto ToDto(Especialidad e) => new()
     {
         Id = e.Id,
@@ -30,13 +33,13 @@ public class EspecialidadService : CrudService<Especialidad>, IEspecialidadServi
 
     public async Task<EspecialidadResponseDto> CreateAsync(EspecialidadRequestDto dto)
     {
-        var entity = new Especialidad { NombreEspecialidad = dto.NombreEspecialidad };
+        var entity = new Especialidad { NombreEspecialidad = NormalizeNombre(dto.NombreEspecialidad) };
         var created = await base.CreateAsync(entity);
         return ToDto(created);
     }
 
     public Task<bool> UpdateAsync(int id, EspecialidadRequestDto dto)
-        => base.UpdateAsync(id, entity => entity.NombreEspecialidad = dto.NombreEspecialidad);
+        => base.UpdateAsync(id, entity => entity.NombreEspecialidad = NormalizeNombre(dto.NombreEspecialidad));
 
     public new Task<bool> DeleteAsync(int id) => base.DeleteAsync(id);
 }
