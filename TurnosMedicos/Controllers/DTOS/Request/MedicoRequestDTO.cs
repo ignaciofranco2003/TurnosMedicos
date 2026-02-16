@@ -7,4 +7,5 @@ public class MedicoRequestDto
     public string Telefono { get; set; } = string.Empty;
     public string Matricula { get; set; } = string.Empty;
     public int DuracionTurnoMin { get; set; }
+    public List<string> EspecialidadesNombres { get; set; } = new();
 }

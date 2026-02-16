@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc3MDUzMTY0NSwiaXNzIjoiVHVybmVyb01lZGljbyIsImF1ZCI6IlR1cm5lcm9NZWRpY29DbGllbnQifQ.PttxI9IhLvG_Z0R-Tr_MSLI5EKdhtijtiyH7y6QKcUM
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc3MTMwMDIzOCwiaXNzIjoiVHVybmVyb01lZGljbyIsImF1ZCI6IlR1cm5lcm9NZWRpY29DbGllbnQifQ.ihqjXPep1zaSl80pSS7ZCh97o_W6n4OMyJ8e1fSKsek
+
 ############################################################
 # Médicos Controller (ruta: /api/medicos)
 # Requiere: Sí (Bearer token)
@@ -28,6 +29,7 @@ Authorization: Bearer {{token}}
   "Telefono": "011-1234-5678",
   "Matricula": "MP-12365",
   "DuracionTurnoMin": 30,
+  "EspecialidadesNombres": ["Cardiología", "Clínica"]
 }
 
 ### Actualizar médico
@@ -41,7 +43,8 @@ Authorization: Bearer {{token}}
   "DNI": "12345678",
   "Telefono": "011-1234-5678",
   "Matricula": "MP-12345",
-  "DuracionTurnoMin": 30
+  "DuracionTurnoMin": 30,
+  "EspecialidadesNombres": ["Cardiología", "Pediatría"]
 }
 
 ### Eliminar médico
@@ -50,19 +53,21 @@ DELETE {{baseUrl}}/api/medicos/1
 Authorization: Bearer {{token}}
 
 ### Asignar especialidades al médico (por nombres)
+# DEPRECADO: enviar `EspecialidadesNombres` en el mismo body del PUT/POST de médico.
 # Response example (204): ../JsonResponses/medicos/set_especialidades.204.txt
 # Response example (400): ../JsonResponses/medicos/set_especialidades.400.json
 # Response example (404): ../JsonResponses/medicos/set_especialidades.404.json
-POST {{baseUrl}}/api/medicos/1/especialidades
+POST {{baseUrl}}/api/medicos/19/especialidades
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-# Un solo nombre
 {
   "EspecialidadesNombres": ["Cardiología"]
 }
 
+
+###
 # Varios nombres
-{
-  "EspecialidadesNombres": ["Cardiología", "Pediatría", "Traumatología"]
-}
+#{
+#  "EspecialidadesNombres": ["Cardiología", "Pediatría", "Traumatología"]
+#}

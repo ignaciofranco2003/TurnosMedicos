@@ -75,6 +75,7 @@ namespace TurnosMedicos.Controllers
 
         [HttpPost("{id:int}/especialidades")]
         [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
+        [Obsolete("Enviar especialidades en el mismo body de Create/Update (MedicoRequestDto.EspecialidadesNombres).")]
         public async Task<IActionResult> SetEspecialidades(int id, [FromBody] AsignarEspecialidadesRequestDto dto)
         {
             try

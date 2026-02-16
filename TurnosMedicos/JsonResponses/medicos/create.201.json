@@ -5,5 +5,14 @@
   "telefono": "011-1234-5678",
   "matricula": "MP-12365",
   "duracionTurnoMin": 30,
-  "especialidades": []
+  "especialidades": [
+    {
+      "id": 1,
+      "nombreEspecialidad": "Cardiología"
+    },
+    {
+      "id": 2,
+      "nombreEspecialidad": "Clínica"
+    }
+  ]
 }

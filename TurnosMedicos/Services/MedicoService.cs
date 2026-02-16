@@ -11,6 +11,13 @@ public class MedicoService : CrudService<Medico>, IMedicoService
 {
     public MedicoService(AppDbContext db) : base(db) { }
 
+    private static List<string> NormalizeNombres(List<string>? especialidadesNombres)
+        => (especialidadesNombres ?? new List<string>())
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(x => x!.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
     private static MedicoResponseDto ToDto(Medico m) => new()
     {
         Id = m.Id,
@@ -30,7 +37,6 @@ public class MedicoService : CrudService<Medico>, IMedicoService
             .ToList()
     };
 
-    // IMPORTANTE: acá sí incluimos la relación N..N
     public new async Task<List<MedicoResponseDto>> GetAllAsync()
     {
         var list = await _db.Medicos
@@ -42,7 +48,6 @@ public class MedicoService : CrudService<Medico>, IMedicoService
         return list.Select(ToDto).ToList();
     }
 
-    // IMPORTANTE: acá sí incluimos la relación N..N
     public new async Task<MedicoResponseDto?> GetByIdAsync(int id)
     {
         var m = await _db.Medicos
@@ -56,6 +61,7 @@ public class MedicoService : CrudService<Medico>, IMedicoService
 
     public async Task<MedicoResponseDto> CreateAsync(MedicoRequestDto dto)
     {
+        using var tx = await _db.Database.BeginTransactionAsync();
         var entity = new Medico
         {
             Nombre = dto.Nombre,
@@ -67,7 +73,14 @@ public class MedicoService : CrudService<Medico>, IMedicoService
 
         var created = await base.CreateAsync(entity);
 
-        // Devolver consistente (con especialidades, aunque sea lista vacía)
+        var nombres = NormalizeNombres(dto.EspecialidadesNombres);
+        if (nombres.Count > 0)
+        {
+            await SetEspecialidadesAsync(created.Id, nombres);
+        }
+
+        await tx.CommitAsync();
+
         var createdFull = await _db.Medicos
             .Include(m => m.MedicoEspecialidades)
                 .ThenInclude(me => me.Especialidad)
@@ -77,8 +90,10 @@ public class MedicoService : CrudService<Medico>, IMedicoService
         return ToDto(createdFull);
     }
 
-    public Task<bool> UpdateAsync(int id, MedicoRequestDto dto)
-        => base.UpdateAsync(id, entity =>
+    public async Task<bool> UpdateAsync(int id, MedicoRequestDto dto)
+    {
+        using var tx = await _db.Database.BeginTransactionAsync();
+        var ok = await base.UpdateAsync(id, entity =>
         {
             entity.Nombre = dto.Nombre;
             entity.DNI = dto.DNI;
@@ -87,14 +102,18 @@ public class MedicoService : CrudService<Medico>, IMedicoService
             entity.DuracionTurnoMin = dto.DuracionTurnoMin;
         });
 
+        if (!ok) return false;
+
+        var nombres = NormalizeNombres(dto.EspecialidadesNombres);
+        await SetEspecialidadesAsync(id, nombres);
+
+        await tx.CommitAsync();
+        return true;
+    }
+
     public async Task<bool> SetEspecialidadesAsync(int medicoId, List<string> especialidadesNombres)
     {
-        // Normalizar: lista no nula, sin duplicados, sin nombres vacíos
-        var nombres = (especialidadesNombres ?? new List<string>())
-            .Where(x => !string.IsNullOrWhiteSpace(x))
-            .Select(x => x!.Trim())
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToList();
+        var nombres = NormalizeNombres(especialidadesNombres);
 
         var medico = await _db.Medicos
             .Include(m => m.MedicoEspecialidades)
@@ -102,14 +121,12 @@ public class MedicoService : CrudService<Medico>, IMedicoService
 
         if (medico is null) return false;
 
-        // Buscar especialidades por nombre (case-insensitive)
         var nombresLower = nombres.Select(n => n.ToLower()).ToList();
         var existentes = await _db.Especialidades
             .Where(e => nombresLower.Contains(e.NombreEspecialidad.ToLower()))
             .Select(e => new { e.Id, e.NombreEspecialidad })
             .ToListAsync();
 
-        // Validar faltantes (comparar en case-insensitive)
         var existentesNombres = existentes
             .Select(e => e.NombreEspecialidad)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
@@ -121,7 +138,6 @@ public class MedicoService : CrudService<Medico>, IMedicoService
         if (faltantes.Count > 0)
             throw new ArgumentException($"Especialidad(es) inexistente(s): {string.Join(", ", faltantes)}");
 
-        // Reemplazar vínculos
         medico.MedicoEspecialidades.Clear();
 
         foreach (var esp in existentes)
