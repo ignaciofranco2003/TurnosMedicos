@@ -3,6 +3,7 @@ using TurnosMedicos.Entities;
 using TurnosMedicos.Services.Interfaces;
 using TurnosMedicos.Controllers.DTOS.Request;
 using TurnosMedicos.Controllers.DTOS.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace TurnosMedicos.Services;
 
@@ -12,6 +13,22 @@ public class EspecialidadService : CrudService<Especialidad>, IEspecialidadServi
 
     private static string NormalizeNombre(string nombre)
         => (nombre ?? string.Empty).Trim();
+
+    private async Task EnsureNombreUniqueAsync(string nombreNormalizado, int? excludeId = null)
+    {
+        if (string.IsNullOrWhiteSpace(nombreNormalizado))
+            throw new ArgumentException("El nombre de la especialidad es requerido");
+
+        var query = _db.Especialidades.AsNoTracking();
+        if (excludeId is not null)
+            query = query.Where(e => e.Id != excludeId.Value);
+
+        var exists = await query
+            .AnyAsync(e => e.NombreEspecialidad.ToLower() == nombreNormalizado.ToLower());
+
+        if (exists)
+            throw new ArgumentException($"Ya existe una especialidad con nombre '{nombreNormalizado}'");
+    }
 
     private static EspecialidadResponseDto ToDto(Especialidad e) => new()
     {
@@ -33,13 +50,21 @@ public class EspecialidadService : CrudService<Especialidad>, IEspecialidadServi
 
     public async Task<EspecialidadResponseDto> CreateAsync(EspecialidadRequestDto dto)
     {
-        var entity = new Especialidad { NombreEspecialidad = NormalizeNombre(dto.NombreEspecialidad) };
+        var nombre = NormalizeNombre(dto.NombreEspecialidad);
+        await EnsureNombreUniqueAsync(nombre);
+
+        var entity = new Especialidad { NombreEspecialidad = nombre };
         var created = await base.CreateAsync(entity);
         return ToDto(created);
     }
 
-    public Task<bool> UpdateAsync(int id, EspecialidadRequestDto dto)
-        => base.UpdateAsync(id, entity => entity.NombreEspecialidad = NormalizeNombre(dto.NombreEspecialidad));
+    public async Task<bool> UpdateAsync(int id, EspecialidadRequestDto dto)
+    {
+        var nombre = NormalizeNombre(dto.NombreEspecialidad);
+        await EnsureNombreUniqueAsync(nombre, excludeId: id);
+
+        return await base.UpdateAsync(id, entity => entity.NombreEspecialidad = nombre);
+    }
 
     public new Task<bool> DeleteAsync(int id) => base.DeleteAsync(id);
 }

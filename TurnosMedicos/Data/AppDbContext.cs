@@ -41,7 +41,7 @@ public class AppDbContext : DbContext
             b.HasIndex(e => e.NombreEspecialidad).IsUnique();
 
             b.Property(e => e.NombreEspecialidad)
-                .UseCollation("Latin1_General_100_CI_AI");
+                .UseCollation("utf8mb4_0900_ai_ci");
         });
 
         // Medico

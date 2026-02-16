@@ -15,11 +15,15 @@ public class TurnosController : ControllerBase
         => _service = service;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? estado = null)
     {
         try
         {
-            return Ok(await _service.GetAllAsync());
+            return Ok(await _service.GetAllAsync(estado));
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
         }
         catch (Exception ex)
         {
@@ -73,7 +77,7 @@ public class TurnosController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] TurnoRequestDto dto)
+    public async Task<IActionResult> Update(int id, [FromBody] TurnoUpdateRequestDto dto)
     {
         try
         {

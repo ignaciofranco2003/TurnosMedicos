@@ -167,7 +167,8 @@ public class MedicoService : CrudService<Medico>, IMedicoService
             var nombre = medico.Nombre;
             foreach (var t in medico.Turnos)
             {
-                t.Observaciones = (t.Observaciones ?? string.Empty) + $" [sistema]:\"Medico {nombre} eliminado\"";
+                var prefix = string.IsNullOrWhiteSpace(t.Observaciones) ? string.Empty : "\n";
+                t.Observaciones = (t.Observaciones ?? string.Empty) + prefix + $"[sistema]:\"Medico {nombre} eliminado\"";
             }
 
             await _db.SaveChangesAsync();

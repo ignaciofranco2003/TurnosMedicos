@@ -37,13 +37,24 @@ public class TurnoService : CrudService<Turno>, ITurnoService
         NombreMedico = t.Medico?.Nombre
     };
 
-    public new async Task<List<TurnoResponseDto>> GetAllAsync()
+    public new async Task<List<TurnoResponseDto>> GetAllAsync(string? estado = null)
     {
-        var list = await _db.Turnos
+        var query = _db.Turnos
             .AsNoTracking()
             .Include(t => t.Paciente)
             .Include(t => t.Medico)
-            .ToListAsync();
+            .OrderBy(t => t.Inicio)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(estado))
+        {
+            if (!TryParseEstado(estado, out var estadoEnum))
+                throw new ArgumentException("Estado inválido");
+
+            query = query.Where(t => t.Estado == estadoEnum);
+        }
+
+        var list = await query.ToListAsync();
 
         return list.Select(ToDto).ToList();
     }
@@ -64,7 +75,7 @@ public class TurnoService : CrudService<Turno>, ITurnoService
         if (!TryParseEstado(dto.Estado, out var estado))
             throw new ArgumentException("Estado inválido");
 
-        // Check overlap for medico
+        // Check overlap for medico (si hay médico asignado)
         await EnsureNoOverlapAsync(null, dto.IdMedico, dto.Inicio, dto.Fin);
 
         var entity = new Turno
@@ -81,18 +92,24 @@ public class TurnoService : CrudService<Turno>, ITurnoService
         return ToDto(created);
     }
 
-    public async Task<bool> UpdateAsync(int id, TurnoRequestDto dto)
+    public async Task<bool> UpdateAsync(int id, TurnoUpdateRequestDto dto)
     {
         if (!TryParseEstado(dto.Estado, out var estado))
             throw new ArgumentException("Estado inválido");
 
-        // Ensure no overlap excluding current turno
-        await EnsureNoOverlapAsync(id, dto.IdMedico, dto.Inicio, dto.Fin);
+        var turnoActual = await _db.Turnos.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+        if (turnoActual is null) return false;
+
+        var idMedicoFinal = dto.IdMedico ?? turnoActual.IdMedico;
+
+        // Ensure no overlap excluding current turno (si hay médico asignado)
+        if (idMedicoFinal is not null)
+            await EnsureNoOverlapAsync(id, idMedicoFinal.Value, dto.Inicio, dto.Fin);
 
         return await base.UpdateAsync(id, turno =>
         {
-            turno.IdPaciente = dto.IdPaciente;
-            turno.IdMedico = dto.IdMedico;
+            turno.IdPaciente = dto.IdPaciente ?? turnoActual.IdPaciente;
+            turno.IdMedico = idMedicoFinal;
             turno.Inicio = dto.Inicio;
             turno.Fin = dto.Fin;
             turno.Estado = estado;

@@ -1,5 +1,6 @@
-@baseUrl = https://localhost:8080
-@token = PEGAR_JWT_AQUI
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc3MTMwNTgyNiwiaXNzIjoiVHVybmVyb01lZGljbyIsImF1ZCI6IlR1cm5lcm9NZWRpY29DbGllbnQifQ.i7vgJEYzsNgnZyyrluuarYdHTN4KfA8RoMcro_VF-Ks
+@estado = Pendiente
 
 ############################################################
 # Turnos Controller (ruta: /api/turnos)
@@ -9,6 +10,12 @@
 ### Listar todos los turnos
 # Response example: ../JsonResponses/turnos/get_all.200.json
 GET {{baseUrl}}/api/turnos
+Authorization: Bearer {{token}}
+
+### Listar turnos por estado
+# Cambiar `@estado` arriba (Pendiente, Confirmado, Cancelado, Atendido, Ausente)
+# Response example: ../JsonResponses/turnos/get_all.200.json
+GET {{baseUrl}}/api/turnos?estado={{estado}}
 Authorization: Bearer {{token}}
 
 ### Obtener turno por id

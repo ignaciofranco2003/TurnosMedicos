@@ -72,7 +72,8 @@ public class PacienteService : CrudService<Paciente>, IPacienteService
             var nombre = paciente.Nombre;
             foreach (var t in paciente.Turnos)
             {
-                t.Observaciones = (t.Observaciones ?? string.Empty) + $" [sistema]:\"Paciente {nombre} eliminado\"";
+                var prefix = string.IsNullOrWhiteSpace(t.Observaciones) ? string.Empty : "\n";
+                t.Observaciones = (t.Observaciones ?? string.Empty) + prefix + $"[sistema]:\"Paciente {nombre} eliminado\"";
             }
 
             await _db.SaveChangesAsync();
