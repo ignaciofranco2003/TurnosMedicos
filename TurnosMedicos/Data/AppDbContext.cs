@@ -84,8 +84,9 @@ public class AppDbContext : DbContext
                 .HasForeignKey(t => t.IdMedico)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Prevent two turnos starting at same time for same medico
-            b.HasIndex(t => new { t.IdMedico, t.Inicio }).IsUnique();
+            // Prevent two turnos starting at same time for same medico (ignoring Cancelado)
+            b.HasIndex(t => new { t.IdMedico, t.Inicio })
+                .IsUnique(false);
 
             // Add index to help range queries (Inicio/Fin)
             b.HasIndex(t => new { t.IdMedico, t.Inicio, t.Fin });

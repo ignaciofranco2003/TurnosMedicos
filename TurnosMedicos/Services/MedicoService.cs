@@ -164,11 +164,11 @@ public class MedicoService : CrudService<Medico>, IMedicoService
         using var tx = await _db.Database.BeginTransactionAsync();
         try
         {
-            var nombre = medico.Nombre;
+            var matricula = medico.Matricula;
             foreach (var t in medico.Turnos)
             {
                 var prefix = string.IsNullOrWhiteSpace(t.Observaciones) ? string.Empty : "\n";
-                t.Observaciones = (t.Observaciones ?? string.Empty) + prefix + $"[sistema]:\"Medico {nombre} eliminado\"";
+                t.Observaciones = (t.Observaciones ?? string.Empty) + prefix + $"[sistema]:\"Medico matrícula {matricula} eliminado\"";
             }
 
             await _db.SaveChangesAsync();

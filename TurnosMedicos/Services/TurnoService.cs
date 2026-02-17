@@ -72,6 +72,9 @@ public class TurnoService : CrudService<Turno>, ITurnoService
 
     public async Task<TurnoResponseDto> CreateAsync(TurnoRequestDto dto)
     {
+        if (dto.Inicio.Date < DateTime.Today)
+            throw new ArgumentException("No se pueden reservar turnos en fechas anteriores al día de hoy");
+
         if (!TryParseEstado(dto.Estado, out var estado))
             throw new ArgumentException("Estado inválido");
 
@@ -94,6 +97,9 @@ public class TurnoService : CrudService<Turno>, ITurnoService
 
     public async Task<bool> UpdateAsync(int id, TurnoUpdateRequestDto dto)
     {
+        if (dto.Inicio.Date < DateTime.Today)
+            throw new ArgumentException("No se pueden reservar turnos en fechas anteriores al día de hoy");
+
         if (!TryParseEstado(dto.Estado, out var estado))
             throw new ArgumentException("Estado inválido");
 
@@ -121,6 +127,7 @@ public class TurnoService : CrudService<Turno>, ITurnoService
     {
         var overlaps = await _db.Turnos
             .Where(t => t.IdMedico == medicoId && (excludeTurnoId == null || t.Id != excludeTurnoId))
+            .Where(t => t.Estado != EstadoTurno.Cancelado)
             .Where(t => !(t.Fin <= inicio || t.Inicio >= fin))
             .AnyAsync();
 
