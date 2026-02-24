@@ -37,7 +37,7 @@ public class TurnoService : CrudService<Turno>, ITurnoService
         NombreMedico = t.Medico?.Nombre
     };
 
-    public new async Task<List<TurnoResponseDto>> GetAllAsync(string? estado = null)
+    public async Task<List<TurnoResponseDto>> GetAllAsync(string? estado = null)
     {
         var query = _db.Turnos
             .AsNoTracking()
