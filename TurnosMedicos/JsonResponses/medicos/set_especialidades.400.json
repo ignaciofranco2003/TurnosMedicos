@@ -1,3 +1,4 @@
 {
-  "error": "Especialidad(es) inexistente(s): Dermatolog�a"
+  "success": false,
+  "error": "Especialidad(es) inexistente(s): <lista>"
 }

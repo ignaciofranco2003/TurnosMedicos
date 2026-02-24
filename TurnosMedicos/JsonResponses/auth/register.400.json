@@ -1,3 +1,4 @@
 {
-  "error": "<mensaje de validaci�n>"
+  "success": false,
+  "error": "<mensaje de validación>"
 }

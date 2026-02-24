@@ -1,5 +1,8 @@
 {
-  "token": "<jwt>",
-  "role": "Admin",
-  "username": "admin"
+  "success": true,
+  "data": {
+    "token": "<jwt>",
+    "username": "admin",
+    "role": "Admin"
+  }
 }

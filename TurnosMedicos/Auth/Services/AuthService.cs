@@ -31,7 +31,7 @@ public class AuthService : IAuthService
             throw new UnauthorizedAccessException("Invalid credentials");
 
         var token = GenerateToken(user);
-        return new AuthResponseDto { Token = token };
+        return new AuthResponseDto { Token = token, Username = user.Username, Role = user.Role.ToString() };
     }
 
     public async Task RegisterAsync(RegisterRequestDto dto)

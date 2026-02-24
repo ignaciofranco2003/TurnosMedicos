@@ -1,3 +1,4 @@
 {
-  "message": "Medico eliminado correctamente"
+  "success": true,
+  "message": "Médico eliminado correctamente"
 }
