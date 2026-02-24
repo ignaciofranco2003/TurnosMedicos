@@ -18,15 +18,15 @@ public class AuthController : ControllerBase
         try
         {
             await _auth.RegisterAsync(dto);
-            return Ok(new { message = "User registered" });
+            return Ok(new { success = true, message = "Usuario registrado correctamente" });
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(new { error = ex.Message });
+            return BadRequest(new { success = false, error = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { error = ex.Message });
+            return StatusCode(500, new { success = false, message = "Ocurrió un error al registrar usuario", error = ex.Message });
         }
     }
 
@@ -36,15 +36,15 @@ public class AuthController : ControllerBase
         try
         {
             var token = await _auth.LoginAsync(dto);
-            return Ok(token);
+            return Ok(new { success = true, data = token });
         }
         catch (UnauthorizedAccessException)
         {
-            return Unauthorized(new { error = "Invalid credentials" });
+            return Unauthorized(new { success = false, error = "Credenciales inválidas" });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { error = ex.Message });
+            return StatusCode(500, new { success = false, message = "Ocurrió un error al iniciar sesión", error = ex.Message });
         }
     }
 }

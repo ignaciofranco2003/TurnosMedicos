@@ -21,11 +21,15 @@ namespace TurnosMedicos.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                var items = await _service.GetAllAsync();
+                if (items == null || !items.Any())
+                    return Ok(new { success = true, message = "No se encontraron especialidades", data = items });
+
+                return Ok(new { success = true, data = items });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(500, new { success = false, message = "Ocurrió un error al obtener especialidades", error = ex.Message });
             }
         }
 
@@ -35,11 +39,13 @@ namespace TurnosMedicos.Controllers
             try
             {
                 var item = await _service.GetByIdAsync(id);
-                return item is null ? NotFound() : Ok(item);
+                return item is null
+                    ? NotFound(new { success = false, message = $"No existe especialidad con ID {id}" })
+                    : Ok(new { success = true, data = item });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(500, new { success = false, message = "Ocurrió un error al obtener la especialidad", error = ex.Message });
             }
         }
 
@@ -49,11 +55,11 @@ namespace TurnosMedicos.Controllers
             try
             {
                 var created = await _service.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+                return CreatedAtAction(nameof(GetById), new { id = created.Id }, new { success = true, message = "Especialidad creada correctamente", data = created });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(500, new { success = false, message = "Ocurrió un error al crear la especialidad", error = ex.Message });
             }
         }
 
@@ -64,12 +70,12 @@ namespace TurnosMedicos.Controllers
             {
                 var ok = await _service.UpdateAsync(id, dto);
                 return ok
-                    ? Ok(new { message = "Especialidad actualizada correctamente" })
-                    : NotFound(new { message = $"No existe especialidad con ID {id}" });
+                    ? Ok(new { success = true, message = "Especialidad actualizada correctamente" })
+                    : NotFound(new { success = false, message = $"No existe especialidad con ID {id}" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(500, new { success = false, message = "Ocurrió un error al actualizar la especialidad", error = ex.Message });
             }
         }
 
@@ -80,12 +86,12 @@ namespace TurnosMedicos.Controllers
             {
                 var ok = await _service.DeleteAsync(id);
                 return ok
-                    ? Ok(new { message = "Especialidad eliminada correctamente" })
-                    : NotFound(new { message = $"No existe especialidad con ID {id}" });
+                    ? Ok(new { success = true, message = "Especialidad eliminada correctamente" })
+                    : NotFound(new { success = false, message = $"No existe especialidad con ID {id}" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(500, new { success = false, message = "Ocurrió un error al eliminar la especialidad", error = ex.Message });
             }
         }
     }
